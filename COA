@@ -3,8 +3,8 @@
 #y为行，x为列
 #linux中2列的像素等于1行的像素
 
-che_x=15  #列----
-che_y=30  #行|
+che_y=15  #列----
+che_x=30  #行|
 speed_x=0
 speed_y=0
 
@@ -12,16 +12,16 @@ shang()
 {
 #clear
 #jiemian
-#speed_x=`expr $speed_x + 1`
-let speed_x--
+#speed_y=`expr $speed_y + 1`
+let speed_y--
 #echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
 }
 xia()
 {
 #clear
 #jiemian
-#speed_x=`expr $speed_x - 1`
-let speed_x++
+#speed_y=`expr $speed_y - 1`
+let speed_y++
 #echo -e "\033["41"m\033[${che_x};${che_y}H  \033[0m"
 #echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
 }
@@ -29,8 +29,8 @@ zuo()
 {
 #clear
 #jiemian
-#speed_y=`expr $speed_y + 1`
-let speed_y--
+#speed_x=`expr $speed_x + 1`
+let speed_x--
 #echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
 #echo -e "\033["41"m\033[${che_x};${che_y}H  \033[0m"
 }
@@ -38,8 +38,8 @@ you()
 {
 #clear
 #jiemian
-#speed_y=`expr $speed_y - 1`
-let speed_y++
+#speed_x=`expr $speed_x - 1`
+let speed_x++
 #echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
 #echo -e "\033["41"m\033[${che_x};${che_y}H  \033[0m"
 }
