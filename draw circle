@@ -1,0 +1,21 @@
+#!/bin/sh
+
+function draw{
+while:
+do
+gnuplot <<! 
+set terminal pngcairo size 1500,900
+set output 'user.png'
+unset xtics
+unset ytics
+unset key
+set xrange [0:50]
+set yrange [0:50]
+plot 'user_f.dat' with circle lc rgb 'green' fs solid 0.5 noborder,\
+'user_s.dat' with circle lc rgb 'red' fs solid 0.5 noborder
+
+set output
+exit
+!
+done
+}
