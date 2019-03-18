@@ -1,167 +1,75 @@
-#!/bin/sh
+#! /bin/sh
 
-#y为行，x为列
-#linux中2列的像素等于1行的像素
+xf=10
+xy=10
+sxf=0
+syf=0
+xs=40
+xs=40
+sxs=0
+sys=0
 
-che_y=15  #列----
-che_x=30  #行|
-speed_x=0
-speed_y=0
+function upf()
+{
+sxf=`expr $sxf + 0.1`
+}
+function downf()
+{
+sxf=`expr $sxf - 0.1`
+}
+function leftf()
+{
+syf=`expr $syf - 0.1`
+}
+function rightf()
+{
+syf=`expr $syf + 0.1`
+}
 
-shang()
+function ups()
 {
-#clear
-#jiemian
-#speed_y=`expr $speed_y + 1`
-let speed_y--
-#echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
+sxs=`expr $sxs + 0.1`
 }
-xia()
+function downs()
 {
-#clear
-#jiemian
-#speed_y=`expr $speed_y - 1`
-let speed_y++
-#echo -e "\033["41"m\033[${che_x};${che_y}H  \033[0m"
-#echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
+sxs=`expr $sxs - 0.1`
 }
-zuo()
+function lefts()
 {
-#clear
-#jiemian
-#speed_x=`expr $speed_x + 1`
-let speed_x--
-#echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
-#echo -e "\033["41"m\033[${che_x};${che_y}H  \033[0m"
+sys=`expr $sys - 0.1`
 }
-you()
+function rights()
 {
-#clear
-#jiemian
-#speed_x=`expr $speed_x - 1`
-let speed_x++
-#echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
-#echo -e "\033["41"m\033[${che_x};${che_y}H  \033[0m"
+sys=`expr $sys + 0.1`
 }
-move_x()
+
+function movef()
 {
-clear
-jiemian
-che_x=`expr $che_x + $speed_x`
-echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
-#echo -e "\033["41"m\033[${che_x};${che_y}H  \033[0m"
+xf=`expr $xf + $sxf`
+yf=`expr $yf + $syf`
+echo "$xf $yf" > userf.dat
 }
-move_y()
+function moves()
 {
-clear
-jiemian
-che_y=`expr $che_y + $speed_y`
-echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
-#echo -e "\033["41"m\033[${che_x};${che_y}H  \033[0m"
+xs=`expr $xs + $sxs`
+ys=`expr $yx + $sys`
+echo "$xs $ys" > users.dat
 }
-che_ting()
+
+funtion judge()
 {
-echo -e "\033[?25h"    #显示光标
-stty echo    #显示输出内容
+if [[ $xf == 0 || $xf == 50]]; then $sxf =`expr -$sxf`
+
+gnuplot <<! 
+set terminal pngcairo size 1500,900
+set output 'user.png'
+unset xtics
+unset ytics
+unset key
+set xrange [0:50]
+set yrange [0:50]
+plot 'user_f.dat' with circle lc rgb 'green' fs solid 0.5 noborder,\
+'user_s.dat' with circle lc rgb 'red' fs solid 0.5 noborder
+set output
 exit
-}
-panduan()
-{
-if [[ $che_x -lt 3 || $che_x -gt 47 || $che_y -lt 2 || $che_y -gt 192 ]];then
-che_ting
-fi
-}
-
-
-
-jiemian()
-{
-clear
-echo -e -n "
-🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧                                                                                                                                                                                              🚧
-🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧"
-}
-
-echo -e "\033[?25l" #隐藏光标
-stty -echo #隐藏输入
-clear
-jiemian
-#echo -e "\033["41"m\033[${che_x};${che_y}H  \033[0m" #先显示一遍小点
-echo -e "\033[${che_x};${che_y}H 🚗 \033[0m"
-while [ 1 ]
-do
-sleep 0.1
-move_x
-move_y
-while :
-read -s -n 1 a
-if [[ $a == "w" ]];then
-shang
-panduan
-break
-elif [[ $a == "s" ]];then
-xia
-panduan
-break
-elif [[ $a == "a" ]];then
-zuo
-panduan
-break
-elif [[ $a == "d" ]];then
-you
-panduan
-break
-elif [[ $a == "p" ]];then
-che_ting
-panduan
-fi
-done
-done
+!
