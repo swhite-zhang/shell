@@ -1,0 +1,87 @@
+crash（${ball1[*]} ${ball2[*]}）{
+if [`echo"scale=2;(($1+$3)-($5+$7))**2+(($2+$8)-($6+$8))**2"|bc` -le `echo"scale=2; ($ball1[6]+$ball2[6])**2"|bc`]
+then
+k1=`echo "scale=2; $2/$1"|bc`
+k2=`echo "scale=2; $6/$5"|bc`
+y=`echo "scale=2;($(k2)*2-$(k1)*6-$k1*$k2*(1-5))/($k2-$k1)"|bc`
+x=`echo "scale=2;($y-$2)/$k1+1"|bc`”
+#计算碰撞路线交点
+#until $n -eq 5 || $error -le 0.01
+#do
+#dot1x=($1+$x)/2
+#dot1y=($2+$y)/2
+#dot2x=($5+$x)/2
+#dot2y=($5+$y])/2
+local dip1x=`echo "scale=2;$1-$x"|bc`
+local dip1y=`echo "scale=2;$2-$y"|bc`
+local dip2x=`echo "scale=2;$5-$x"|bc`
+local dip2y=`echo "scale=2;$6-$x"|bc`
+#目前坐标于交点的距离
+local i=1
+local j=1
+local k=1
+error[25]
+for i in 1 2 3 4 5
+do
+for j in 1 2 3 4 5
+do
+error[($j-1)+5*($i-1)]=` echo "scale=2;（$x+$i*$dip1x-($x+$j*$ dip2x)）**2+($y+$i*$dip1y-($y+$j*$ dip2y))**2-$ball1[6]**2-$ball2[6]**2"|bc`
+$j=$j+1
+done
+$i=$i+1
+$j=0
+done
+while $k -le 24
+do
+if [$error[$k] -lt 0]
+then $error[$k]=-$error[$k]
+fi
+done
+$i=1
+$j=0
+while [$i -le 24]
+do
+$serror=$error[0]
+if [$vserror -lt $error[i]]
+then $serror=$error[i]
+$j=$i
+fi
+$i=$i+1
+done
+#枚举逼近碰撞点
+$i=($j+1)/5
+$j=($j+1)%5
+p1x=`echo "scale=2;$x+$i*$dip1x"|bc`
+p1y=`echo "scale=2;$y+$i*$dip1y"|bc`
+p2x=`echo "scale=2;$x+$j*$ dip2x"|bc`
+p2y=`echo "scale=2;$y+$j*$ dip2y"|bc`
+#这是拟合出碰撞时两个球球心的位置
+local t=($p1x-$1)/3
+#计算碰撞前运动时间
+$k=`echo "scale=2;($p1y-$p2y)/($p1x-$p2x) "|bc`
+$k=`echo "scale=2; -1/$k "|bc`
+$k_=-1/$k
+#计算碰撞径向与轴向
+sinx=`echo "scale=2;(1/sqrt((1/$k_)**2+1))"|bc`
+cosx=`echo "scale=2;(1/sqrt(($k_)**2+1))"|bc`
+#计算正弦和余弦
+local v1=`echo "scale=2;$1*$sinx+$2*$cosx)"|bc`
+local v2=`echo "scale=2;$5*$sinx+$6*$cosx)"|bc`
+#此处暂以交换速度为碰撞
+local v1x=$v1*$sinx"|bc`
+local v2x=$v2*$sinx"|bc`
+local v1y=$v1*$cosx"|bc`
+local v2y=$v2*$cosx"|bc`
+$3=`echo "scale=2;$3-v1x+v2x"|bc`
+$4=`echo "scale=2;$4-v1y+v2y"|bc`
+$7=`echo "scale=2;$7+v1x-v2x"|bc`
+$8=`echo "scale=2;$8+v1y-v2y"|bc`
+#更新速度
+$t=1-$t
+$1= `echo "scale=2;$p1x+$t*$3"|bc`
+$2= `echo "scale=2;$p1y+$t*$4"|bc`
+$5= `echo "scale=2;$p2x+$t*$7"|bc`
+$6= `echo "scale=2;$p2y+$t*$8"|bc`
+#更新位置
+$9=1
+$10=1
